@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./components/_comp/footer";
 import Header from "./components/_comp/header";
 import Homepage from "./components/Homepage/Homepage";
-import Account from "./components/Account/Account";
 import RegisterSection from "./components/Auth/Register/RegisterSection";
 import LoginSection from "./components/Auth/Login/LoginSection";
 import AccountLayout from "./components/Layouts/AccountLayout";
@@ -18,6 +17,7 @@ function App() {
 
           <Route exact path="/settings/*" element={<AccountLayout />} />
 
+          {/* Auth Routes */}
           <Route path="/sign-up" element={<RegisterSection />} />
           <Route path="/sign-in" element={<LoginSection />} />
         </Routes>
