@@ -3,6 +3,9 @@ import Footer from "./components/_comp/footer";
 import Header from "./components/_comp/header";
 import Homepage from "./components/Homepage/Homepage";
 import Account from "./components/Account/Account";
+import RegisterSection from "./components/Auth/Register/RegisterSection";
+import LoginSection from "./components/Auth/Login/LoginSection";
+import AccountLayout from "./components/Layouts/AccountLayout";
 
 function App() {
   return (
@@ -13,7 +16,10 @@ function App() {
         <Routes>
           <Route index path="/" element={<Homepage />} />
 
-          <Route exact path="/account/*" element={<Account />} />
+          <Route exact path="/settings/*" element={<AccountLayout />} />
+
+          <Route path="/sign-up" element={<RegisterSection />} />
+          <Route path="/sign-in" element={<LoginSection />} />
         </Routes>
 
         <Footer />
