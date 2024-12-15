@@ -19,9 +19,9 @@ function Header() {
           </Link>
         </div>
 
-        <Link to={"/sign-up"}>Sign Up</Link>
+        <Link to={"/auth/sign-up"}>Sign Up</Link>
 
-        <Link to={"/sign-in"}>Sign In</Link>
+        <Link to={"/auth/sign-in"}>Sign In</Link>
       </div>
     </header>
   );

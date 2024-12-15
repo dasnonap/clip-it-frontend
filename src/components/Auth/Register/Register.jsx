@@ -1,15 +1,25 @@
 import TextInput from "../../_comp/Fields/TextInput";
 
-function LoginSection() {
+function Register() {
   const handleOnSubmit = (event) => {
+    event.preventDefault();
+
     console.log(event);
   };
+
   return (
     <div className="container max-w-sm bg-white text-black py-4">
-      <h2 className="text-center">Sign In</h2>
+      <h2 className="text-center">Create account</h2>
 
       <form onSubmit={handleOnSubmit}>
         <div className="flex flex-col space-y-4 py-5 px-7">
+          <TextInput
+            id={"username"}
+            showLabel={true}
+            label={"Username"}
+            type="text"
+          />
+
           <TextInput
             id={"email"}
             showLabel={true}
@@ -24,8 +34,15 @@ function LoginSection() {
             type="password"
           />
 
+          <TextInput
+            id={"repeat_password"}
+            showLabel={true}
+            label={"Repeat Password"}
+            type="password"
+          />
+
           <button type="submit" className="btn btn-primary">
-            Sign In
+            Register
           </button>
         </div>
       </form>
@@ -33,4 +50,4 @@ function LoginSection() {
   );
 }
 
-export default LoginSection;
+export default Register;
