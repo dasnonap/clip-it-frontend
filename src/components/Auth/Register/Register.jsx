@@ -40,9 +40,14 @@ function Register() {
             label={"Repeat Password"}
             type="password"
           />
+        </div>
 
-          <button type="submit" className="btn btn-primary">
-            Register
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="bg-slate-300 px-4 py-2 rounded border-2 hover:border-slare-300 hover:bg-white "
+          >
+            Continue
           </button>
         </div>
       </form>
