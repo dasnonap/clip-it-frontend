@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 function TextInput({
   showLabel,
   label,
@@ -7,6 +9,9 @@ function TextInput({
   type = "text",
   overwriteClassName = "",
   overwriteInputClassName = "",
+  register,
+  validation={},
+  hasError,
 }) {
   return (
     <div
@@ -23,17 +28,24 @@ function TextInput({
       ) : (
         ""
       )}
-
+      
       <input
         type={type}
         id={id}
         placeholder={placeholder ?? ""}
         defaultValue={defaultValue}
         className={
-          overwriteInputClassName.length > 0
-            ? overwriteInputClassName
-            : "text-black border-3 border-black rounded-md bg-slate-400 ring-2 ring-slate-100 text-white px-4 px-2 h-10"
+          (
+            overwriteInputClassName.length > 0
+              ? overwriteInputClassName
+              : "text-black border-solid border-2 rounded-md bg-slate-400 ring-2 ring-slate-100 text-white px-4 px-2 h-10 focus:outline-none"
+          )
+          + ' ' 
+          + (
+            hasError ? 'border-red-500' : 'border-sky-500'
+          )
         }
+        {...register(id, validation)}
       />
     </div>
   );
