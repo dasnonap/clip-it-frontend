@@ -2,6 +2,7 @@ import TextInput from "../../_comp/Fields/TextInput";
 import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import User from "../../../api/User";
 
 /**
  * Checks if the form has any errors
@@ -27,8 +28,13 @@ function LoginSection() {
   } = useForm();
   const [hasEmailError, setHasEmailError] = useState(false);
   const [hasPasswordError, setHasPasswordError] = useState(false);
-  const onSubmit = (data) => {
-    console.log(data, errors);
+  const [submitError, setSubmitError] = useState('');
+  const onSubmit = async (data) => {
+    try {
+      await User.login(data);
+    } catch (error) {
+     setSubmitError(error.message); 
+    }
   };
 
   useEffect(() => {
@@ -47,6 +53,12 @@ function LoginSection() {
       {hasFormErrors(errors) ? 
         <div className="border-2 border-red space-x-4 space-y-6 rounded bg-red-400">
           There has been an error while submitting the form.
+        </div>
+      : ''}
+
+      {submitError ? 
+        <div className="border-2 border-red space-x-4 space-y-6 rounded bg-red-400">
+          {submitError}
         </div>
       : ''}
 
