@@ -3,22 +3,10 @@ import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import User from "../../../api/User";
-
-/**
- * Checks if the form has any errors
- * @param {Object} errors the errors object
- * @param {String} field check for specific field, if left empty will return overall
- * @returns boolean
- */
-const hasFormErrors = (errors, field = '') => {
-  const errorKeys = Object.keys(errors);
-
-  if (field.length > 0) {
-    return errorKeys.includes(field);
-  }
-
-  return errorKeys.length > 0;
-}
+import { hasFormErrors } from "../../../helpers/utils";
+import MainErrorNotice from "../_comp/MainErrorNotice";
+import PasswordRequirements from "../_comp/PasswordRequirements";
+hasFormErrors
 
 function LoginSection() {
   const {
@@ -50,11 +38,7 @@ function LoginSection() {
     <div className="container max-w-sm bg-white text-black py-4">
       <h2 className="text-center">Sign In</h2>
 
-      {hasFormErrors(errors) ? 
-        <div className="border-2 border-red space-x-4 space-y-6 rounded bg-red-400">
-          There has been an error while submitting the form.
-        </div>
-      : ''}
+      <MainErrorNotice hasErrors={hasFormErrors(errors)}/>
 
       {submitError ? 
         <div className="border-2 border-red space-x-4 space-y-6 rounded bg-red-400">
@@ -95,26 +79,8 @@ function LoginSection() {
             }
             hasError={hasPasswordError}
           />
-          
-          <div className="space-x-6">
-            <p className="text-medium">
-              PASSWORD REQUIREMENTS:
-            </p>
 
-            <ul className="text-small">
-              <li>
-                at least 6 characters long
-              </li>
-              
-              <li>
-                at least 1 number <sup>(0-9)</sup>
-              </li>
-
-              <li>
-                at least 1 uppercase letter <sup>(A-Z)</sup>
-              </li>
-            </ul>
-          </div>
+          <PasswordRequirements />
         </div>
 
         <div className="flex justify-center">

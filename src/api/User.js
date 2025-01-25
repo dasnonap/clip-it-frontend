@@ -1,5 +1,5 @@
-import utils from '../helpers/utils.js';
 import client from './Client.js';
+import { parseErrorResponse } from '../helpers/utils';
 
 class User{
     USER_ENDPOINT  = '/user';
@@ -16,7 +16,7 @@ class User{
             })
             .catch((error) => {
                 throw new Error(
-                    utils.parseErrorResponse(error)
+                    parseErrorResponse(error)
                 );
             });
     }

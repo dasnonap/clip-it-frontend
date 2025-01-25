@@ -3,7 +3,7 @@
  * @param {Object} error the Error object, if empty return default Error message
  * @returns Parsed error message
  */
-const parseErrorResponse = (error) => {
+export const parseErrorResponse = (error) => {
     const TYPE_AUTH = 'authentication';
     const TYPE_FIELD_VALIDATION = 'validation';
     const DEFAULT_MESSAGE = 'There has been an error. Please try again later';
@@ -44,4 +44,18 @@ const parseErrorResponse = (error) => {
     return result;
 }
 
-export default {parseErrorResponse};
+/**
+ * Checks if the form has any errors
+ * @param {Object} errors the errors object
+ * @param {String} field check for specific field, if left empty will return overall
+ * @returns boolean
+ */
+export const hasFormErrors = (errors, field = '') => {
+  const errorKeys = Object.keys(errors);
+
+  if (field.length > 0) {
+    return errorKeys.includes(field);
+  }
+
+  return errorKeys.length > 0;
+}
