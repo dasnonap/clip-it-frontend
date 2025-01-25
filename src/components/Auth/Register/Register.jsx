@@ -37,6 +37,7 @@ function Register() {
     setHasPasswordError(hasFormErrors(errors, 'password'));
     setHasRepeatPasswordError(hasFormErrors(errors, 'repeat_password'));   
     console.log(errors, password); 
+
   }, [errors, hasUsernameError, hasEmailError, hasPasswordError, hasRepeatPasswordError]);
 
   // Reset the field states
@@ -51,7 +52,7 @@ function Register() {
     <div className="container max-w-sm bg-white text-black py-4">
       <h2 className="text-center">Create account</h2>
       
-      <MainErrorNotice hasErrors={hasFormErrors(errors)}/>
+      <MainErrorNotice errors={errors}/>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col space-y-4 py-5 px-7">

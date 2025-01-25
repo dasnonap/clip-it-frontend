@@ -38,7 +38,7 @@ function LoginSection() {
     <div className="container max-w-sm bg-white text-black py-4">
       <h2 className="text-center">Sign In</h2>
 
-      <MainErrorNotice hasErrors={hasFormErrors(errors)}/>
+      <MainErrorNotice errors={errors}/>
 
       {submitError ? 
         <div className="border-2 border-red space-x-4 space-y-6 rounded bg-red-400">
