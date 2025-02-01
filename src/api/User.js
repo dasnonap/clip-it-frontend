@@ -3,23 +3,18 @@ import { parseErrorResponse } from "../helpers/utils";
 import commonStore from "../stores/commonStore.js";
 
 class User {
-  USER_ENDPOINT = "/user";
-  LOGIN_ENDPOINT = this.USER_ENDPOINT + "/login";
-  REGISTER_ENDPOINT = this.USER_ENDPOINT + "/register";
-
   /**
    * Send Login Request
    */
-  async login(data) {
-    await client
+  login(data) {
+    return client
       .post(this.LOGIN_ENDPOINT, data)
       .then((response) => {
         const responseData = response.data;
-        console.log(responseData);
         if (responseData.result == false) {
           return;
         }
-        console.log(responseData.token);
+
         if (responseData.token.length > 0) {
           commonStore.setToken(responseData.token);
         }
@@ -30,7 +25,6 @@ class User {
   }
 
   async register(data) {
-    console.log(data);
     await client
       .post(this.REGISTER_ENDPOINT, data)
       .then((response) => {

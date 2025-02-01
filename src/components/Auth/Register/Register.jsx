@@ -29,7 +29,7 @@ function Register() {
     try {
       await User.register(data);
     } catch (error) {
-      setSubmitError(error);
+      setSubmitError(error.message);
     }
   };
 

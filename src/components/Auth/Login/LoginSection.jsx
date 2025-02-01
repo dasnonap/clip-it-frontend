@@ -2,11 +2,11 @@ import TextInput from "../../_comp/Fields/TextInput";
 import { observer } from "mobx-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import User from "../../../api/User";
-import { hasFormErrors } from "../../../helpers/utils";
+import { hasFormErrors, parseErrorResponse } from "../../../helpers/utils";
 import MainErrorNotice from "../_comp/MainErrorNotice";
 import PasswordRequirements from "../_comp/PasswordRequirements";
-hasFormErrors;
+import authStore from "../../../stores/authStore";
+import { useNavigate } from "react-router-dom";
 
 function LoginSection() {
   const {
@@ -14,17 +14,21 @@ function LoginSection() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
   const [hasEmailError, setHasEmailError] = useState(false);
   const [hasPasswordError, setHasPasswordError] = useState(false);
   const [submitError, setSubmitError] = useState("");
 
   // Handle Form submission
-  const onSubmit = async (data) => {
-    try {
-      await User.login(data);
-    } catch (error) {
-      setSubmitError(error.message);
-    }
+  const onSubmit = (data) => {
+    authStore.login(data)
+      .then((response) => {
+        console.log('success from controller', response);
+        navigate('/');
+      })
+      .catch((error) => {
+        setSubmitError(parseErrorResponse(error));
+      });
   };
 
   useEffect(() => {

@@ -1,5 +1,14 @@
+import { observer } from "mobx-react";
+import authStore from "../../stores/authStore";
+
 function Homepage() {
-  return <div className="test">aaaa this is home listing content</div>;
+  const isUserAuth = authStore.isAuthenticated;
+  
+  return <div className="test">
+    aaaa this is home listing content
+
+    {isUserAuth ? 'logged in guy': 'not logged in'}
+  </div>;
 }
 
-export default Homepage;
+export default observer(Homepage);
