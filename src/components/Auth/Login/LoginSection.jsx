@@ -6,7 +6,7 @@ import User from "../../../api/User";
 import { hasFormErrors } from "../../../helpers/utils";
 import MainErrorNotice from "../_comp/MainErrorNotice";
 import PasswordRequirements from "../_comp/PasswordRequirements";
-hasFormErrors
+hasFormErrors;
 
 function LoginSection() {
   const {
@@ -16,12 +16,14 @@ function LoginSection() {
   } = useForm();
   const [hasEmailError, setHasEmailError] = useState(false);
   const [hasPasswordError, setHasPasswordError] = useState(false);
-  const [submitError, setSubmitError] = useState('');
+  const [submitError, setSubmitError] = useState("");
+
+  // Handle Form submission
   const onSubmit = async (data) => {
     try {
       await User.login(data);
     } catch (error) {
-     setSubmitError(error.message); 
+      setSubmitError(error.message);
     }
   };
 
@@ -30,21 +32,28 @@ function LoginSection() {
       return;
     }
 
-    setHasEmailError(hasFormErrors(errors, 'email'));
-    setHasPasswordError(hasFormErrors(errors, 'password'));
+    setHasEmailError(hasFormErrors(errors, "email"));
+    setHasPasswordError(hasFormErrors(errors, "password"));
   }, [errors, hasEmailError, hasPasswordError]);
-  
+
+  const onSubmitClick = () => {
+    setHasEmailError(false);
+    setHasPasswordError(false);
+  };
+
   return (
     <div className="container max-w-sm bg-white text-black py-4">
       <h2 className="text-center">Sign In</h2>
 
-      <MainErrorNotice errors={errors}/>
+      <MainErrorNotice errors={errors} />
 
-      {submitError ? 
+      {submitError ? (
         <div className="border-2 border-red space-x-4 space-y-6 rounded bg-red-400">
           {submitError}
         </div>
-      : ''}
+      ) : (
+        ""
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col space-y-4 py-5 px-7">
@@ -54,13 +63,11 @@ function LoginSection() {
             label={"Email"}
             type="text"
             register={register}
-            validation={
-              {
-                required: true,
-                minLength: 1,
-                pattern: /(.?)+@[a-z]+\.[a-z]+/
-              }
-            }
+            validation={{
+              required: true,
+              minLength: 1,
+              pattern: /(.?)+@[a-z]+\.[a-z]+/,
+            }}
             hasError={hasEmailError}
           />
 
@@ -70,13 +77,11 @@ function LoginSection() {
             label={"Password"}
             type="password"
             register={register}
-            validation={
-              {
-                required: true,
-                minLength: 1,
-                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
-              }
-            }
+            validation={{
+              required: true,
+              minLength: 1,
+              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+            }}
             hasError={hasPasswordError}
           />
 
@@ -87,6 +92,7 @@ function LoginSection() {
           <button
             type="submit"
             className="bg-slate-300 px-4 py-2 rounded border-2 hover:border-slare-300 hover:bg-white "
+            onClick={onSubmitClick}
           >
             Continue
           </button>

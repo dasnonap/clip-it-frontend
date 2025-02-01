@@ -4,26 +4,33 @@ import { hasFormErrors } from "../../../helpers/utils";
 import MainErrorNotice from "../_comp/MainErrorNotice";
 import { useState, useEffect, useRef } from "react";
 import PasswordRequirements from "../_comp/PasswordRequirements";
+import { observer } from "mobx-react";
+import User from "../../../api/User";
 
 function Register() {
   const {
     register,
     handleSubmit,
-    formState: {errors},
-    watch
-  }= useForm();
+    formState: { errors },
+    watch,
+  } = useForm();
   const [hasUsernameError, setHasUsernameError] = useState(false);
   const [hasEmailError, setHasEmailError] = useState(false);
   const [hasPasswordError, setHasPasswordError] = useState(false);
   const [hasRepeatPasswordError, setHasRepeatPasswordError] = useState(false);
-  
+  const [submitError, setSubmitError] = useState("");
+
   const password = useRef({});
   password.current = watch("password", "");
   password.repeat = watch("repeat_password", "");
-  
+
   // Handle form submission
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      await User.register(data);
+    } catch (error) {
+      setSubmitError(error);
+    }
   };
 
   // When errors are updated check the fields and set error state
@@ -32,13 +39,17 @@ function Register() {
       return;
     }
 
-    setHasUsernameError(hasFormErrors(errors, 'username'));
-    setHasEmailError(hasFormErrors(errors, 'email'));
-    setHasPasswordError(hasFormErrors(errors, 'password'));
-    setHasRepeatPasswordError(hasFormErrors(errors, 'repeat_password'));   
-    console.log(errors, password); 
-
-  }, [errors, hasUsernameError, hasEmailError, hasPasswordError, hasRepeatPasswordError]);
+    setHasUsernameError(hasFormErrors(errors, "username"));
+    setHasEmailError(hasFormErrors(errors, "email"));
+    setHasPasswordError(hasFormErrors(errors, "password"));
+    setHasRepeatPasswordError(hasFormErrors(errors, "repeat_password"));
+  }, [
+    errors,
+    hasUsernameError,
+    hasEmailError,
+    hasPasswordError,
+    hasRepeatPasswordError,
+  ]);
 
   // Reset the field states
   const onSubmitClick = () => {
@@ -46,13 +57,21 @@ function Register() {
     setHasEmailError(false);
     setHasPasswordError(false);
     setHasRepeatPasswordError(false);
-  }
+  };
 
   return (
     <div className="container max-w-sm bg-white text-black py-4">
       <h2 className="text-center">Create account</h2>
-      
-      <MainErrorNotice errors={errors}/>
+
+      <MainErrorNotice errors={errors} />
+
+      {submitError ? (
+        <div className="border-2 border-red space-x-4 space-y-6 rounded bg-red-400">
+          {submitError}
+        </div>
+      ) : (
+        ""
+      )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col space-y-4 py-5 px-7">
@@ -62,11 +81,9 @@ function Register() {
             label={"Username"}
             type="text"
             register={register}
-            validation={
-              {
-                required: true
-              }
-            }
+            validation={{
+              required: true,
+            }}
             hasError={hasUsernameError}
           />
 
@@ -76,13 +93,11 @@ function Register() {
             label={"Email"}
             type="email"
             register={register}
-            validation={
-              {
-                required: true,
-                minLength: 1,
-                pattern: /(.?)+@[a-z]+\.[a-z]+/
-              }
-            }
+            validation={{
+              required: true,
+              minLength: 1,
+              pattern: /(.?)+@[a-z]+\.[a-z]+/,
+            }}
             hasError={hasEmailError}
           />
 
@@ -92,13 +107,11 @@ function Register() {
             label={"Password"}
             type="password"
             register={register}
-            validation={
-              {
-                required: true,
-                minLength: 1,
-                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
-              }
-            }
+            validation={{
+              required: true,
+              minLength: 1,
+              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+            }}
             hasError={hasPasswordError}
           />
 
@@ -108,15 +121,13 @@ function Register() {
             label={"Repeat Password"}
             type="password"
             register={register}
-            validation={
-              {
-                required: true,
-                minLength: 1,
-                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
-                validate: value => value == password.current || "The passwords do not match"
-                
-              }
-            }
+            validation={{
+              required: true,
+              minLength: 1,
+              pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/,
+              validate: (value) =>
+                value == password.current || "The passwords do not match",
+            }}
             hasError={hasRepeatPasswordError}
           />
 
@@ -137,4 +148,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default observer(Register);
