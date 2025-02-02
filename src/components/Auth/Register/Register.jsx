@@ -5,9 +5,9 @@ import MainErrorNotice from "../_comp/MainErrorNotice";
 import { useState, useEffect, useRef } from "react";
 import PasswordRequirements from "../_comp/PasswordRequirements";
 import { observer } from "mobx-react";
-import User from "../../../api/User";
 import authStore from "../../../stores/authStore";
 import { useNavigate } from "react-router-dom";
+import DefautlLoader from "../../_comp/Loaders/DefaultLoader";
 
 function Register() {
   const {
@@ -23,17 +23,25 @@ function Register() {
   const [submitError, setSubmitError] = useState("");
   const navigate = useNavigate();
   const password = useRef({});
+  const [isLoading, setisLoading] = useState(false);
+
   password.current = watch("password", "");
   password.repeat = watch("repeat_password", "");
 
   // Handle form submission
   const onSubmit = (data) => {
-    authStore.register(data)
+    setisLoading(true);
+
+    authStore
+      .register(data)
       .then((response) => {
-        navigate('/');
+        navigate("/");
       })
       .catch((error) => {
         setSubmitError(parseErrorResponse(error));
+      })
+      .finally(() => {
+        setisLoading(false);
       });
   };
 
@@ -65,8 +73,9 @@ function Register() {
 
   return (
     <div className="container max-w-sm bg-white text-black py-4">
-      
       <h2 className="text-center">Create account</h2>
+
+      <DefautlLoader isLoading={isLoading} />
 
       <MainErrorNotice errors={errors} />
 
@@ -78,7 +87,10 @@ function Register() {
         ""
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={isLoading ? "pointer-events-none" : ""}
+      >
         <div className="flex flex-col space-y-4 py-5 px-7">
           <TextInput
             id={"username"}

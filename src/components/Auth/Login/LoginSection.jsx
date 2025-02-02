@@ -25,9 +25,10 @@ function LoginSection() {
   const onSubmit = (data) => {
     setIsLoading(true);
 
-    authStore.login(data)
+    authStore
+      .login(data)
       .then((response) => {
-        navigate('/');
+        navigate("/");
       })
       .catch((error) => {
         setSubmitError(parseErrorResponse(error));
@@ -54,8 +55,8 @@ function LoginSection() {
   return (
     <div className="relative container max-w-sm bg-white text-black py-4 ">
       <h2 className="text-center">Sign In</h2>
-      
-      <DefautlLoader isLoading={isLoading}/>
+
+      <DefautlLoader isLoading={isLoading} />
 
       <MainErrorNotice errors={errors} />
 
@@ -67,7 +68,10 @@ function LoginSection() {
         ""
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className={isLoading ? "pointer-events-none" : ""}
+      >
         <div className="flex flex-col space-y-4 py-5 px-7">
           <TextInput
             id={"email"}
