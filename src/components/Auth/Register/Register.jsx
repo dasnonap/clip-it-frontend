@@ -5,7 +5,7 @@ import MainErrorNotice from "../_comp/MainErrorNotice";
 import { useState, useEffect, useRef } from "react";
 import PasswordRequirements from "../_comp/PasswordRequirements";
 import { observer } from "mobx-react";
-import authStore from "../../../stores/authStore";
+import { authStore } from "../../../stores/rootStore";
 import { useNavigate } from "react-router-dom";
 import DefautlLoader from "../../_comp/Loaders/DefaultLoader";
 
