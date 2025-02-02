@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
 import TextInput from "../../_comp/Fields/TextInput";
-import { hasFormErrors } from "../../../helpers/utils";
+import { hasFormErrors, parseErrorResponse } from "../../../helpers/utils";
 import MainErrorNotice from "../_comp/MainErrorNotice";
 import { useState, useEffect, useRef } from "react";
 import PasswordRequirements from "../_comp/PasswordRequirements";
 import { observer } from "mobx-react";
 import User from "../../../api/User";
+import authStore from "../../../stores/authStore";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const {
@@ -19,21 +21,23 @@ function Register() {
   const [hasPasswordError, setHasPasswordError] = useState(false);
   const [hasRepeatPasswordError, setHasRepeatPasswordError] = useState(false);
   const [submitError, setSubmitError] = useState("");
-
+  const navigate = useNavigate();
   const password = useRef({});
   password.current = watch("password", "");
   password.repeat = watch("repeat_password", "");
 
   // Handle form submission
-  const onSubmit = async (data) => {
-    try {
-      await User.register(data);
-    } catch (error) {
-      setSubmitError(error.message);
-    }
+  const onSubmit = (data) => {
+    authStore.register(data)
+      .then((response) => {
+        navigate('/');
+      })
+      .catch((error) => {
+        setSubmitError(parseErrorResponse(error));
+      });
   };
 
-  // When errors are updated check the fields and set error state
+  // When errors are updated check the fields and set error states
   useEffect(() => {
     if (Object.keys(errors).length < 1) {
       return;

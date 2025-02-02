@@ -23,7 +23,6 @@ function LoginSection() {
   const onSubmit = (data) => {
     authStore.login(data)
       .then((response) => {
-        console.log('success from controller', response);
         navigate('/');
       })
       .catch((error) => {

@@ -10,6 +10,8 @@ class AuthStore{
         setToken: action,
         getToken: computed,
         login: action,
+        register: action,
+        logout: action,
         isAuthenticated: computed,
     });
   }
@@ -22,6 +24,7 @@ class AuthStore{
     return this.token;
   }
 
+  // actions 
   login(data) {
     return Client.post('user.login', data)
         .then((response) => {
@@ -41,6 +44,30 @@ class AuthStore{
         })
   }
 
+  register(data) {
+    return Client.post('user.register', data)
+        .then((response) => {
+            const responseData = response.data;
+     
+            if (responseData.result == false) {
+                return;
+            }
+
+            if (responseData.token.length > 0) {
+                this.setToken(responseData.token);
+            }
+            return Promise.resolve(responseData);
+        })
+        .catch((error) => {
+            return Promise.reject(error);
+        })
+  }
+
+  logout() {
+    this.setToken('');
+  }
+
+  // computes
   get isAuthenticated(){
     return this.token.length > 0;
   }
