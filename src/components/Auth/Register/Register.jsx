@@ -65,6 +65,7 @@ function Register() {
 
   return (
     <div className="container max-w-sm bg-white text-black py-4">
+      
       <h2 className="text-center">Create account</h2>
 
       <MainErrorNotice errors={errors} />

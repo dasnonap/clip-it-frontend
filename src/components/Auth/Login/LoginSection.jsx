@@ -7,6 +7,7 @@ import MainErrorNotice from "../_comp/MainErrorNotice";
 import PasswordRequirements from "../_comp/PasswordRequirements";
 import authStore from "../../../stores/authStore";
 import { useNavigate } from "react-router-dom";
+import DefautlLoader from "../../_comp/Loaders/DefaultLoader";
 
 function LoginSection() {
   const {
@@ -18,15 +19,21 @@ function LoginSection() {
   const [hasEmailError, setHasEmailError] = useState(false);
   const [hasPasswordError, setHasPasswordError] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // Handle Form submission
   const onSubmit = (data) => {
+    setIsLoading(true);
+
     authStore.login(data)
       .then((response) => {
         navigate('/');
       })
       .catch((error) => {
         setSubmitError(parseErrorResponse(error));
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -45,8 +52,10 @@ function LoginSection() {
   };
 
   return (
-    <div className="container max-w-sm bg-white text-black py-4">
+    <div className="relative container max-w-sm bg-white text-black py-4 ">
       <h2 className="text-center">Sign In</h2>
+      
+      <DefautlLoader isLoading={isLoading}/>
 
       <MainErrorNotice errors={errors} />
 
