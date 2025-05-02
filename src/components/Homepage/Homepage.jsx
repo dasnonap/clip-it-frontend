@@ -1,5 +1,7 @@
 import { observer } from "mobx-react";
 import { authStore, userStore } from "../../stores/rootStore";
+import Client from "../../api/Client";
+import Listing from "../Posts/Listing";
 
 function Homepage() {
   const isUserAuth = authStore.isAuthenticated;
@@ -19,6 +21,30 @@ function Homepage() {
       >
         Log Out
       </button>
+      <br />
+      <button
+        onClick={(event) => {
+          Client.post(
+            "user.refresh",
+            {},
+            {
+              withCredentials: true,
+            }
+          )
+            .then((response) => {
+              console.log(response);
+            })
+            .catch((error) => {
+              console.log(error);
+            })
+            .finally(() => {
+              console.log("exittt");
+            });
+        }}
+      >
+        Refresh Token
+      </button>
+      <Listing />
     </div>
   );
 }

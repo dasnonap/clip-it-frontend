@@ -8,7 +8,7 @@ import AuthLayout from "./components/Layouts/AuthLayout";
 function App() {
   return (
     <Router>
-      <div className="container mx-auto px-4 py-6 ">
+      <div className="max-w-screen-lg mx-auto px-4 py-6 ">
         <Header />
 
         <Routes>

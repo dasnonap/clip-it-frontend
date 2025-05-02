@@ -11,6 +11,7 @@ class UserStore {
     makeObservable(this, {
       user: observable,
       setUser: action,
+      flush: action,
       getUser: computed,
     });
   }
@@ -24,6 +25,10 @@ class UserStore {
 
   get getUser() {
     return this.user;
+  }
+
+  flush() {
+    this.user = null;
   }
 }
 
