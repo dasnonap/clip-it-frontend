@@ -7,13 +7,19 @@ class Client {
   REGISTER_ENDPOINT = this.USER_ENDPOINT + "/register";
   REFRESH_TOKEN_ENDPOINT = this.USER_ENDPOINT + "/refresh";
 
+  POST_ENDPOINT = "/posts";
+
   endpoints = {
     user: {
       login: this.LOGIN_ENDPOINT,
       register: this.REGISTER_ENDPOINT,
       refresh: this.REFRESH_TOKEN_ENDPOINT,
     },
+    posts: {
+      list: this.POST_ENDPOINT,
+    },
   };
+
   /**
    * Sends POST Request to API to specified Endpoint
    * @param {String} endpoint
@@ -32,7 +38,22 @@ class Client {
     return axios.post(fullUrl, data, headers);
   }
 
-  get() {}
+  /**
+   * Sends GET Request to API to specified Endpoint
+   * @param {String} endpoint
+   * @param {Object} data
+   * @param {Object} headers
+   */
+  get(endpoint, data = {}, headers = {}) {
+    if (!endpoint.length) {
+      console.error("Please provide valid endpoint.");
+      return;
+    }
+
+    const fullUrl = this.constructPath(endpoint);
+
+    return axios.get(fullUrl, data, headers);
+  }
 
   constructPath(endpoint) {
     if (!endpoint.length) {

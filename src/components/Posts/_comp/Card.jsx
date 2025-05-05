@@ -1,28 +1,33 @@
-function Card() {
+function Card({ post }) {
+  if (Object.keys(post) < 1) {
+    return;
+  }
+  const userName = `@${post.user.userName}`;
   return (
     <div className="max-w-screen-md mx-auto bg-transparent rounded-2xl shadow-md p-4 space-y-4">
-      <h2 className="text-2xl font-semibold text-white-800">Post Title Here</h2>
+      <h2 className="text-2xl font-semibold text-white-800">{post.title}</h2>
 
       <div className="grid grid-cols-1 gap-4">
-        <div className="overflow-hidden">
-          <img
-            src="https://placecats.com/300/200"
-            alt="cat"
-            className="object-cover w-full h-100"
-          />
-        </div>
-        <div className="overflow-hidden">
-          <img
-            src="https://placecats.com/300/200"
-            alt="cat 2"
-            className="object-contain w-full h-100 overflow-hidden"
-          />
-        </div>
+        {post.media
+          ? post.media.map((media) => {
+              const url = `http://127.0.0.1:8000/media/${media.id}`;
+
+              return (
+                <div className="overflow-hidden" key={Math.random().toString()}>
+                  <img
+                    src={url}
+                    alt="cat"
+                    className="object-cover w-full h-100"
+                  />
+                </div>
+              );
+            })
+          : "No media uploaded"}
       </div>
 
       <div className="flex items-center justify-between text-sm pt-2 border-t">
         <span className="font-medium text-gray-400">
-          Posted by: <span className="text-white font-bold">@username</span>
+          Posted by: <span className="text-white font-bold">{userName}</span>
         </span>
 
         <a href="/posts/post-slug" className="text-white-400 hover:underline">

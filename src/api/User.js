@@ -15,6 +15,8 @@ class User {
     this.userName = userArray.username;
     this.roles = userArray.roles;
     this.email = userArray.email;
+
+    return this;
   }
 }
 
