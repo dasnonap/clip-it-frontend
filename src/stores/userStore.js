@@ -1,5 +1,5 @@
 import { makeObservable, observable, action, computed } from "mobx";
-import User from "../api/User";
+import User from "../dto/User";
 
 class UserStore {
   user = null;

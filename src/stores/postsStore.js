@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import Client from "../api/Client";
-import Post from "../api/Post";
+import Post from "../dto/Post";
 
 class PostsStore {
     rootStore;
