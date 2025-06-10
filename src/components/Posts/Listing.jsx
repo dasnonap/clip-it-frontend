@@ -1,32 +1,9 @@
-import { useEffect, useState } from "react";
 import Card from "./_comp/Card";
 import Sidebar from "./_comp/Sidebar";
-import Client from "../../api/Client";
-import Post from "../../api/Post";
+import { observer } from "mobx-react";
+import { postsStore } from "../../stores/rootStore";
 
 function Listing() {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    Client.get("posts.list")
-      .then((response) => {
-        if (response.data.items && response.status == 200) {
-          let rawPosts = [];
-
-          response.data.items.forEach((postData) => {
-            const post = new Post();
-
-            rawPosts.push(post.createFromArray(postData));
-          });
-
-          setPosts(rawPosts);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
   return (
     <div className="pt-4">
       <h2>listing bish</h2>
@@ -35,19 +12,26 @@ function Listing() {
         <div className="w-1/4">
           <Sidebar />
         </div>
-
-        {posts ? (
-          <div className="w-3/4">
-            {posts.map((post) => {
-              return <Card post={post} key={Math.random().toString()} />;
-            })}
-          </div>
-        ) : (
-          "No posts found!"
-        )}
+        <div className="w-3/4">
+        {postsStore.isLoading ?
+            <div className="flex flex-center justify-center">
+              <img src="/loader.svg" alt=""/>
+            </div>
+          : 
+            postsStore.posts ? (
+              <>
+                {postsStore.posts.map((post) => {
+                  return <Card post={post} key={Math.random().toString()} />;
+                })}
+              </>
+            ) : (
+              "No posts found!"
+            )
+          }
+        </div>
       </div>
     </div>
   );
 }
 
-export default Listing;
+export default observer(Listing);
