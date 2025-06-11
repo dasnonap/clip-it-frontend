@@ -23,14 +23,10 @@ class PostsStore {
         Client.get("posts.list")
         .then((response) => {
             if (response.data.items && response.status == 200) {
-                let rawPosts = [];
-
                 response.data.items.forEach((postData) => {
                     const post = new Post();
-                    rawPosts.push(post.createFromArray(postData));
+                    this.posts.push(post.createFromArray(postData));
                 });
-                
-                this.posts = rawPosts;
             }
         })
         .catch((error) => {

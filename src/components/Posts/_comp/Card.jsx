@@ -10,12 +10,10 @@ function Card({ post }) {
       <div className="grid grid-cols-1 gap-4">
         {post.media
           ? post.media.map((media) => {
-              const url = `http://127.0.0.1:8000/media/${media.id}`;
-
               return (
                 <div className="overflow-hidden" key={Math.random().toString()}>
                   <img
-                    src={url}
+                    src={media.href}
                     alt="cat"
                     className="object-cover w-full h-100"
                   />

@@ -4,6 +4,7 @@ class Media {
   type = "";
   updatedAt = "";
   fileName = "";
+  href = "";
 
   createFromArray(objectData) {
     if (Object.keys(objectData) < 1) {
@@ -15,6 +16,7 @@ class Media {
     this.type = objectData.type;
     this.updatedAt = objectData.updatedAt;
     this.fileName = objectData.fileName;
+    this.href = objectData.href;
 
     return this;
   }
