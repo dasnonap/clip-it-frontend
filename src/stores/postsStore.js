@@ -8,7 +8,6 @@ class PostsStore {
     isLoading = false;
     error = null;
 
-
     constructor (rootStore) {
         this.rootStore = rootStore;
 
@@ -38,6 +37,7 @@ class PostsStore {
     }
 
     addPost(post) {
+
         throw new Error("not implemented yet")
     }
 

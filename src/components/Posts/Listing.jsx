@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import { postsStore } from "../../stores/rootStore";
 
 function Listing() {
+  
   return (
     <div className="pt-4">
       <h2>listing bish</h2>

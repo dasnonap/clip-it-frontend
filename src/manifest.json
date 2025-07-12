@@ -1,0 +1,94 @@
+﻿{
+    "directories":  [
+                        "",
+                        "api/",
+                        "assets/",
+                        "assets/images/",
+                        "components/_comp/",
+                        "components/_comp/Fields/",
+                        "components/_comp/Loaders/",
+                        "components/Account/Account/",
+                        "components/Auth/_comp/",
+                        "components/Auth/Login/",
+                        "components/Auth/Register/",
+                        "components/Homepage/",
+                        "components/Layouts/",
+                        "components/Posts/",
+                        "components/Posts/_comp/",
+                        "dto/",
+                        "helpers/",
+                        "stores/"
+                    ],
+    "files":  {
+                  "16":  {
+                             "utils.js":  1735412193
+                         },
+                  "3":  {
+                            "logo.png":  1735054492,
+                            "user-placeholder.png":  1735054492
+                        },
+                  "5":  {
+                            "TextInput.jsx":  1735054492
+                        },
+                  "12":  {
+                             "AuthLayout.jsx":  1735054492,
+                             "AccountLayout.jsx":  1735054492
+                         },
+                  "10":  {
+                             "Register.jsx":  1749589136
+                         },
+                  "2":  {
+                            "react.svg":  1735054492
+                        },
+                  "8":  {
+                            "MainErrorNotice.jsx":  1737835286,
+                            "PasswordRequirements.jsx":  1737838072
+                        },
+                  "0":  {
+                            "testScript.ps1":  1749729480,
+                            "index.css":  1735054492,
+                            "manifest.json":  1749729345,
+                            "main.jsx":  1735054492,
+                            "App.jsx":  1749589136
+                        },
+                  "11":  {
+                             "Homepage.jsx":  1749589136
+                         },
+                  "1":  {
+                            "Client.js":  1749589136
+                        },
+                  "17":  {
+                             "rootStore.js":  1749589136,
+                             "authStore.js":  1749589136,
+                             "userStore.js":  1749589136,
+                             "commonStore.js":  1749589136,
+                             "postsStore.js":  1749591471
+                         },
+                  "9":  {
+                            "LoginSection.jsx":  1749589136
+                        },
+                  "14":  {
+                             "Card.jsx":  1749589136,
+                             "Sidebar.jsx":  1749589136
+                         },
+                  "7":  {
+                            "UserAccount.jsx":  1735054492
+                        },
+                  "15":  {
+                             "User.js":  1749589136,
+                             "Media.js":  1749589136,
+                             "Post.js":  1749589136
+                         },
+                  "6":  {
+                            "DefaultLoader.jsx":  1738494551
+                        },
+                  "4":  {
+                            "footer.jsx":  1735054492,
+                            "PageNotFound.jsx":  1735054492,
+                            "header.jsx":  1735054492
+                        },
+                  "13":  {
+                             "Listing.jsx":  1749589136
+                         }
+              }
+}

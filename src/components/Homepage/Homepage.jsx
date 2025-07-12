@@ -4,7 +4,7 @@ import Client from "../../api/Client";
 import Listing from "../Posts/Listing";
 
 function Homepage() {
-  const isUserAuth = authStore.isAuthenticated;
+  const isUserAuth = authStore.isAuthenticated();
   const currentUser = userStore.getUser;
 
   return (

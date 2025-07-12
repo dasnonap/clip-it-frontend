@@ -1,0 +1,20 @@
+﻿{
+    "api":  "manifest-YXBp.json",
+    "components/Auth/_comp":  "manifest-Y29tcG9uZW50cy9BdXRoL19jb21w.json",
+    "assets":  "manifest-YXNzZXRz.json",
+    "components/_comp/Fields":  "manifest-Y29tcG9uZW50cy9fY29tcC9GaWVsZHM.json",
+    "components/Account/Account":  "manifest-Y29tcG9uZW50cy9BY2NvdW50L0FjY291bnQ.json",
+    "helpers":  "manifest-aGVscGVycw.json",
+    "assets/images":  "manifest-YXNzZXRzL2ltYWdlcw.json",
+    ".":  "manifest-Lg.json",
+    "components/Layouts":  "manifest-Y29tcG9uZW50cy9MYXlvdXRz.json",
+    "stores":  "manifest-c3RvcmVz.json",
+    "components/Auth/Login":  "manifest-Y29tcG9uZW50cy9BdXRoL0xvZ2lu.json",
+    "components/Posts/_comp":  "manifest-Y29tcG9uZW50cy9Qb3N0cy9fY29tcA.json",
+    "components/_comp/Loaders":  "manifest-Y29tcG9uZW50cy9fY29tcC9Mb2FkZXJz.json",
+    "components/_comp":  "manifest-Y29tcG9uZW50cy9fY29tcA.json",
+    "dto":  "manifest-ZHRv.json",
+    "components/Posts":  "manifest-Y29tcG9uZW50cy9Qb3N0cw.json",
+    "components/Homepage":  "manifest-Y29tcG9uZW50cy9Ib21lcGFnZQ.json",
+    "components/Auth/Register":  "manifest-Y29tcG9uZW50cy9BdXRoL1JlZ2lzdGVy.json"
+}

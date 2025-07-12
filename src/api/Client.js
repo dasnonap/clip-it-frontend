@@ -5,6 +5,7 @@ class Client {
   USER_ENDPOINT = "/user";
   LOGIN_ENDPOINT = this.USER_ENDPOINT + "/login";
   REGISTER_ENDPOINT = this.USER_ENDPOINT + "/register";
+  VALIDATE_TOKEN_ENDPOINT = this.USER_ENDPOINT + "/token/validate";
   REFRESH_TOKEN_ENDPOINT = this.USER_ENDPOINT + "/refresh";
 
   POST_ENDPOINT = "/posts";
@@ -14,6 +15,7 @@ class Client {
       login: this.LOGIN_ENDPOINT,
       register: this.REGISTER_ENDPOINT,
       refresh: this.REFRESH_TOKEN_ENDPOINT,
+      validate: this.VALIDATE_TOKEN_ENDPOINT,
     },
     posts: {
       list: this.POST_ENDPOINT,

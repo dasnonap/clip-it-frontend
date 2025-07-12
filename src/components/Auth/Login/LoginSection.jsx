@@ -27,8 +27,8 @@ function LoginSection() {
 
     authStore
       .login(data)
-      .then((response) => {
-        // navigate("/");
+      .then(() => {
+        navigate("/");
       })
       .catch((error) => {
         setSubmitError(parseErrorResponse(error));

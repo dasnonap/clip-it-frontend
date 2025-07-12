@@ -1,4 +1,4 @@
-import { action, computed, makeObservable, observable } from "mobx";
+import { makeAutoObservable } from "mobx";
 import Client from "../api/Client";
 
 class AuthStore {
@@ -8,22 +8,16 @@ class AuthStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
 
-    makeObservable(this, {
-      token: observable,
-      setToken: action,
-      getToken: computed,
-      login: action,
-      register: action,
-      logout: action,
-      isAuthenticated: computed,
-    });
+    makeAutoObservable(this);
+
+    this.checkToken();
   }
 
   setToken(token) {
     this.token = token;
   }
 
-  get getToken() {
+  getToken() {
     return this.token;
   }
 
@@ -39,13 +33,13 @@ class AuthStore {
 
         if (responseData.token.length > 0) {
           this.setToken(responseData.token);
+
+          this.rootStore.commonStore.updateToken(this.token);
         }
 
         if (responseData.user) {
           this.rootStore.userStore.setUser(responseData.user);
         }
-
-        console.log(response);
 
         return Promise.resolve(responseData);
       })
@@ -80,12 +74,49 @@ class AuthStore {
 
   logout() {
     this.setToken("");
-    // remove userStore data too
+    this.rootStore.commonStore.updateToken("")
   }
 
-  // computes
-  get isAuthenticated() {
+  isAuthenticated() {
     return this.token.length > 0;
+  }
+
+  checkToken() {
+    let storedToken = this.rootStore.commonStore.getToken();
+
+    if(!storedToken) 
+      return;
+    
+    Client.post("user.validate", 
+      {
+        token: storedToken
+      }
+      )
+      .then((response) => {
+        const responseData = response.data;
+
+        if (responseData.result == false) {
+          return;
+        }
+
+        if (responseData.token.length > 0) {
+          this.setToken(responseData.token);
+
+          this.rootStore.commonStore.updateToken(this.token);
+        }
+
+        if (responseData.user) {
+          this.rootStore.userStore.setUser(responseData.user);
+        }
+        
+      })
+      .finally(() => {
+        return;
+      })
+      .catch((error) => {
+        this.logout();
+        console.error(error)
+      })    
   }
 }
 
