@@ -4,7 +4,7 @@ import { observer } from "mobx-react";
 import { postsStore } from "../../stores/rootStore";
 
 function Listing() {
-  
+  console.log('here');
   return (
     <div className="pt-4">
       <h2>listing bish</h2>
@@ -21,8 +21,8 @@ function Listing() {
           : 
             postsStore.posts ? (
               <>
-                {postsStore.posts.map((post) => {
-                  return <Card post={post} key={Math.random().toString()} />;
+                {postsStore.posts.map((post, index) => {
+                  return <Card post={post} key={post.id} />;
                 })}
               </>
             ) : (

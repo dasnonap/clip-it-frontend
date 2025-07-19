@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, computed } from "mobx";
+import { makeAutoObservable } from "mobx";
 import User from "../dto/User";
 
 class UserStore {
@@ -8,12 +8,7 @@ class UserStore {
   constructor(rootStore) {
     this.rootStore = rootStore;
 
-    makeObservable(this, {
-      user: observable,
-      setUser: action,
-      flush: action,
-      getUser: computed,
-    });
+    makeAutoObservable(this);
   }
 
   setUser(userArray) {
@@ -23,7 +18,7 @@ class UserStore {
     this.user = user;
   }
 
-  get getUser() {
+  getUser() {
     return this.user;
   }
 

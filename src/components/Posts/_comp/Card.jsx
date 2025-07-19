@@ -1,8 +1,26 @@
+import { useState } from "react";
+import ImageSceletonLoader from "../../_comp/Loaders/ImageSceletonLoader";
+
 function Card({ post }) {
   if (Object.keys(post) < 1) {
     return;
   }
   const userName = `@${post.user.userName}`;
+  const mediaIds = post.media.length > 0 ? post.media.map((media) => media.id) : [];
+  const [imagesLoaded, setImagesLoaded] = useState(new Set(mediaIds));
+
+  const handleImageLoad = (mediaId) => {
+    if (imagesLoaded.size < 1) 
+      return;
+
+    setImagesLoaded(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(mediaId);
+      return newSet;
+    })
+  }
+  console.log('helooooo from card component');
+
   return (
     <div className="max-w-screen-md mx-auto bg-transparent rounded-2xl shadow-md p-4 space-y-4">
       <h2 className="text-2xl font-semibold text-white-800">{post.title}</h2>
@@ -16,7 +34,13 @@ function Card({ post }) {
                     src={media.href}
                     alt="cat"
                     className="object-cover w-full h-100"
+                    onLoad={() => handleImageLoad(media.id)}
+                    onError={() => handleImageLoad(media.id)}
                   />
+                  {imagesLoaded.has(media.id) ? 
+                    <ImageSceletonLoader />
+                    : '' 
+                  }
                 </div>
               );
             })

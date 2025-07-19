@@ -5,7 +5,7 @@ import Listing from "../Posts/Listing";
 
 function Homepage() {
   const isUserAuth = authStore.isAuthenticated();
-  const currentUser = userStore.getUser;
+  const currentUser = userStore.getUser();
 
   return (
     <div className="test">
