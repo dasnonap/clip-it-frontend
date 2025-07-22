@@ -1,7 +1,7 @@
 import { observer } from "mobx-react";
-import { authStore, userStore } from "../../stores/rootStore";
 import Client from "../../api/Client";
 import Listing from "../Posts/Listing";
+import { authStore, userStore } from "../../stores";
 
 function Homepage() {
   const isUserAuth = authStore.isAuthenticated();

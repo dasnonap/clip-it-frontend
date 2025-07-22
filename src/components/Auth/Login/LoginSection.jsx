@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import { hasFormErrors, parseErrorResponse } from "../../../helpers/utils";
 import MainErrorNotice from "../_comp/MainErrorNotice";
 import PasswordRequirements from "../_comp/PasswordRequirements";
-import { authStore } from "../../../stores/rootStore";
 import { useNavigate } from "react-router-dom";
 import DefautlLoader from "../../_comp/Loaders/DefaultLoader";
+import { authStore } from "../../../stores";
 
 function LoginSection() {
   const {

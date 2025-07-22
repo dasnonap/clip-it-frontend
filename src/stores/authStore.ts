@@ -1,12 +1,13 @@
 import { makeAutoObservable } from "mobx";
 import Client from "../api/Client";
 import { ApiEndpoints } from "../enums";
+import RootStore from "./rootStore";
 
 class AuthStore {
-  token = "";
-  rootStore;
+  private token: string = "";
+  public rootStore: RootStore;
 
-  constructor(rootStore) {
+  constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
 
     makeAutoObservable(this);
@@ -14,7 +15,7 @@ class AuthStore {
     this.checkToken();
   }
 
-  setToken(token) {
+  setToken(token: string) {
     this.token = token;
   }
 
@@ -23,7 +24,7 @@ class AuthStore {
   }
 
   // actions
-  login(data) {
+  login(data: any) {
     return Client.post(ApiEndpoints.LOGIN, data, {
       withCredentials: true,
     })

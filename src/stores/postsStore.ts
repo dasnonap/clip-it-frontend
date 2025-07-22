@@ -2,14 +2,15 @@ import { makeAutoObservable } from "mobx";
 import Client from "../api/Client";
 import Post from "../dto/Post";
 import { ApiEndpoints } from "../enums";
+import RootStore from "./rootStore";
 
 class PostsStore {
-  rootStore;
+  public rootStore: RootStore;
   posts = [];
   isLoading = false;
   error = null;
 
-  constructor(rootStore) {
+  constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
 
     makeAutoObservable(this);

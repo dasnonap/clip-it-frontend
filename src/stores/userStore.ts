@@ -1,17 +1,18 @@
 import { makeAutoObservable } from "mobx";
 import User from "../dto/User";
+import RootStore from "./rootStore";
 
 class UserStore {
-  user = null;
-  rootStore;
+  private user: any = null;
+  public rootStore: RootStore;
 
-  constructor(rootStore) {
+  constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
 
     makeAutoObservable(this);
   }
 
-  setUser(userArray) {
+  setUser(userArray: any) {
     const user = new User();
     user.createFromArray(userArray);
 

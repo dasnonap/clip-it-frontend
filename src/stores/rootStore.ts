@@ -4,6 +4,11 @@ import PostsStore from "./postsStore";
 import CommonStore from "./commonStore";
 
 class RootStore {
+  public commonStore: CommonStore;
+  public authStore: AuthStore;
+  public userStore: UserStore;
+  public postsStore: PostsStore;
+
   constructor() {
     this.commonStore = new CommonStore(this);
     this.authStore = new AuthStore(this);
@@ -12,10 +17,4 @@ class RootStore {
   }
 }
 
-const rootStore = new RootStore();
-export default rootStore;
-
-export const authStore = rootStore.authStore;
-export const userStore = rootStore.userStore;
-export const postsStore = rootStore.postsStore;
-export const commonStore = rootStore.commonStore;
+export default RootStore;

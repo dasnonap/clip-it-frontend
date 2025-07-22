@@ -1,11 +1,12 @@
 import { makeAutoObservable } from "mobx";
 import { TOKEN_KEY } from "../enums";
+import RootStore from "./rootStore";
 
 class CommonStore {
-  rootStore;
-  accessToken = "";
+  private rootStore: RootStore;
+  private accessToken: string = "";
 
-  constructor(rootStore) {
+  constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
 
     makeAutoObservable(this);
@@ -13,14 +14,14 @@ class CommonStore {
     this.loadTokenFromStorage();
   }
 
-  updateToken(accessToken) {
+  updateToken(accessToken: string) {
     this.accessToken = accessToken;
 
     this.saveTokenToStorage();
   }
 
   loadTokenFromStorage() {
-    this.accessToken = window.localStorage.getItem(TOKEN_KEY);
+    this.accessToken = window.localStorage.getItem(TOKEN_KEY) ?? "";
   }
 
   saveTokenToStorage() {
