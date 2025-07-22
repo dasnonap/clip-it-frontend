@@ -1,9 +1,9 @@
 import { makeAutoObservable } from "mobx";
-import commonEnum from "../enums/common";
+import { TOKEN_KEY } from "../enums";
 
 class CommonStore {
   rootStore;
-  accessToken = '';
+  accessToken = "";
 
   constructor(rootStore) {
     this.rootStore = rootStore;
@@ -18,19 +18,19 @@ class CommonStore {
 
     this.saveTokenToStorage();
   }
-  
+
   loadTokenFromStorage() {
-    this.accessToken = window.localStorage.getItem(commonEnum.TOKEN_KEY);    
+    this.accessToken = window.localStorage.getItem(TOKEN_KEY);
   }
 
   saveTokenToStorage() {
-    window.localStorage.setItem(commonEnum.TOKEN_KEY, this.accessToken);
+    window.localStorage.setItem(TOKEN_KEY, this.accessToken);
   }
 
   removeTokenFromStorage() {
     this.accessToken = "";
 
-    window.localStorage.removeItem(commonEnum.TOKEN_KEY);
+    window.localStorage.removeItem(TOKEN_KEY);
   }
 
   getToken() {

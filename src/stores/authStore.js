@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import Client from "../api/Client";
+import { ApiEndpoints } from "../enums";
 
 class AuthStore {
   token = "";
@@ -23,7 +24,9 @@ class AuthStore {
 
   // actions
   login(data) {
-    return Client.post("user.login", data, { withCredentials: true })
+    return Client.post(ApiEndpoints.LOGIN, data, {
+      withCredentials: true,
+    })
       .then((response) => {
         const responseData = response.data;
 
@@ -49,7 +52,7 @@ class AuthStore {
   }
 
   register(data) {
-    return Client.post("user.register", data)
+    return Client.post(ApiEndpoints.REGISTER, data)
       .then((response) => {
         const responseData = response.data;
 
@@ -74,7 +77,7 @@ class AuthStore {
 
   logout() {
     this.setToken("");
-    this.rootStore.commonStore.updateToken("")
+    this.rootStore.commonStore.updateToken("");
   }
 
   isAuthenticated() {
@@ -84,14 +87,11 @@ class AuthStore {
   checkToken() {
     let storedToken = this.rootStore.commonStore.getToken();
 
-    if(!storedToken) 
-      return;
-    
-    Client.post("user.validate", 
-      {
-        token: storedToken
-      }
-      )
+    if (!storedToken) return;
+
+    Client.post(ApiEndpoints.VALIDATE_TOKEN, {
+      token: storedToken,
+    })
       .then((response) => {
         const responseData = response.data;
 
@@ -108,15 +108,14 @@ class AuthStore {
         if (responseData.user) {
           this.rootStore.userStore.setUser(responseData.user);
         }
-        
       })
       .finally(() => {
         return;
       })
       .catch((error) => {
         this.logout();
-        console.error(error)
-      })    
+        console.error(error);
+      });
   }
 }
 
