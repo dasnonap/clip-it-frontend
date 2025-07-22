@@ -1,7 +1,25 @@
 import axios from "axios";
-const apiUrl = import.meta.env.VITE_API_BACKEND_URL;
+import { IClient } from "interfaces";
+import { env } from "process";
+import { RequestData, RequestHeaders, RequestParams } from "types";
 
-class Client {
+const apiUrl = env.VITE_API_BACKEND_URL;
+
+class Client implements IClient {
+  get<T = any, P = RequestParams, H = RequestHeaders>(endpoint: string, params?: P, headers?: H): Promise<T> {
+    if (!endpoint.length) {
+      console.error("Please provide valid endpoint.");
+      // return;
+    }
+
+    const fullUrl = this.constructPath(endpoint);
+
+    return axios.get(fullUrl, params);
+  }
+
+  post<T = any, D = RequestData, H = RequestHeaders>(endpoint: string, data?: D, headers?: H): Promise<T> {
+    throw new Error("Method not implemented.");
+  }
   USER_ENDPOINT = "/user";
   LOGIN_ENDPOINT = this.USER_ENDPOINT + "/login";
   REGISTER_ENDPOINT = this.USER_ENDPOINT + "/register";
@@ -21,7 +39,7 @@ class Client {
       list: this.POST_ENDPOINT,
     },
   };
-
+  
   /**
    * Sends POST Request to API to specified Endpoint
    * @param {String} endpoint
@@ -29,7 +47,7 @@ class Client {
    * @param {Object} headers
    * @returns Promise
    */
-  post(endpoint, data = {}, headers = {}) {
+  post(endpoint: string, data?: RequestData, headers?: RequestHeaders) {
     if (!endpoint.length) {
       console.error("Please provide valid endpoint.");
       return;
@@ -47,14 +65,6 @@ class Client {
    * @param {Object} headers
    */
   get(endpoint, data = {}, headers = {}) {
-    if (!endpoint.length) {
-      console.error("Please provide valid endpoint.");
-      return;
-    }
-
-    const fullUrl = this.constructPath(endpoint);
-
-    return axios.get(fullUrl, data, headers);
   }
 
   constructPath(endpoint) {
