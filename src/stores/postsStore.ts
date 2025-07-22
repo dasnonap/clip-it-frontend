@@ -1,9 +1,8 @@
 import { makeAutoObservable } from "mobx";
 import Client from "../api/Client";
-import Post from "../dto/Post";
 import { ApiEndpoints } from "../enums";
 import RootStore from "./rootStore";
-
+import Post from "../dto/Post";
 class PostsStore {
   public rootStore: RootStore;
   posts = [];
@@ -24,9 +23,10 @@ class PostsStore {
     Client.get(ApiEndpoints.POSTS_LISTING)
       .then((response) => {
         if (response.data.items && response.status == 200) {
-          response.data.items.forEach((postData) => {
-            const post = new Post();
-            this.posts.push(post.createFromArray(postData));
+          response.data.items.forEach((postData: any) => {
+            const post = new Post(postData);
+
+            this.posts.push(post);
           });
         }
       })

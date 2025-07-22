@@ -13,8 +13,7 @@ class UserStore {
   }
 
   setUser(userArray: any) {
-    const user = new User();
-    user.createFromArray(userArray);
+    const user = new User(userArray);
 
     this.user = user;
   }

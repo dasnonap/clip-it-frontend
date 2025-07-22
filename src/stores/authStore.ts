@@ -52,7 +52,7 @@ class AuthStore {
       });
   }
 
-  register(data) {
+  register(data: any) {
     return Client.post(ApiEndpoints.REGISTER, data)
       .then((response) => {
         const responseData = response.data;
